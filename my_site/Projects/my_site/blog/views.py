@@ -74,5 +74,22 @@ def post_detail(request, slug):
     for post in all_posts:
         if post['slug'] == slug:
             request_data = post
+            
+    # ********** OR *************
+    """ More efficient than For loop above as 
+        Forloop: ( Disadvantages )
+            - Inefficient because it keeps looping even after finding a match.
+            - if post is not found, request_data might be undefined, causing issues.
+        
+        next(): (Advantages ✅)
+            - More efficient since it stops searching after finding the first match.
+            - Shorter and cleaner code.
+    
+    """
+
+    # Raises StopIteration error if no match is found (unless a default value is provided).
+    # Safer to provide defaul value as 'None' at the end to This prevents errors by returning None if no matching post is found.
+    
+    request_data = next((post for post in all_posts if post["slug"] == slug), None)
 
     return render(request, "blog/post-detail.html", {"post": request_data})
