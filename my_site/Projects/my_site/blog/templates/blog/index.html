@@ -1,10 +1,63 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}My Blogs{% endblock title %}
 
 {% block css_files %}
-<h1>Welcome to my blog!! </h1>
-<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit enim consequuntur nihil ipsa sint est earum in? Illum eius fugiat repellat aut voluptates tempora vel atque omnis facilis corporis, eveniet voluptate nisi qui animi expedita, a doloribus adipisci officia alias aperiam odit et sapiente est! Ipsam sunt accusantium necessitatibus natus.</p>
+    <link rel="stylesheet" href="{% static "blog/index.css" %}">
 {% endblock css_files %}
 
-{% block body %}{% endblock body %}
+{% block body %}
+<header id="main-navigation">
+    <h1> <a href="">Harsh's Blog</a> </h1>
+    <nav>
+        <a href="">All Posts</a>
+    </nav>
+</header>
+
+<section id="welcome">
+    <header>
+        <img src="" alt="Harsh- The Author of this Blog" />
+        <h2>Harsh's Blog</h2>
+    </header>
+
+    <p>Hi, I am Harsh and I love to blog about tech and the world!</p>
+
+</section>
+
+<section id="latest-posts">
+    <h2>My Latest Thoughts</h2>
+
+    <ul>
+        <li>
+            <article class="post">
+                <a href="">
+                    <img src="" alt="Mountain Hiking" />
+                    <div class="post__content">
+                        <h3>
+                            Mountain Hiking
+                        </h3>
+                        <p>There's nothing like the views you get when hiking in the mountains!
+                            And I wasn't even perpared for what happened whilst I was enjoing the view.</p>
+                    </div>
+                </a>
+
+            </article>
+        </li>
+    </ul>
+</section>
+
+<section id="about">
+    <h2>What I Do</h2>
+    <p>
+        I love progamming, I love to help others and I enjoy exploping new
+        technologies in general.
+    </p>
+    <p>
+        My goal is to keep on growing as Developer and Devops engineer - and if I could
+        help you with my skills to grow your business and add value to it, I would be
+        very happy!
+    </p>
+</section>
+
+{% endblock body %}
