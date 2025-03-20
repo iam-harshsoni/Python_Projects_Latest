@@ -1,60 +1,78 @@
 from django.shortcuts import render
 from datetime import date
-my_blogs = [
+
+all_posts = [
     {
-        "slug" : "hike-in-the-mountain",
-        "image" : "mountains.jpg",
-        "author" : "Harsh Soni",
-        "date" : date(2021,7,21),
-        "title" : "Mountain Hiking",
-        "excert" : "There's nothing like the views you get when hiking in the mountains!And I wasn't even perpared for what happened whilst I was enjoing the view.",
-        "content" : """
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?       
-        """
+        "slug": "climbing-new-heights",
+        "image": "mountains.jpg",
+        "author": "Harsh Soni",
+        "date": "2024-01-08",
+        "title": "Climbing New Heights",
+        "excert": "A journey of perseverance and determination while scaling new peaks.",
+        "content": "Mountain climbing is not just about reaching the summit; it's about the journey, the struggles, and the mindset required to overcome obstacles. Recently, I embarked on a trekking adventure to the Himalayas, and the experience was beyond words. The thin air made every step a challenge, but with every altitude gain, the breathtaking views made it all worthwhile. Standing at the peak, I realized that every challenge in life can be conquered with persistence and the right strategy. If you ever get a chance, climb a mountain—not just to reach the top, but to discover yourself along the way."
     },
     {
-        "slug" : "progarmming-is-fun",
-        "image" : "coding.jpg",
-        "author" : "Harsh Soni",
-        "date" : date(2022,3,10),
-        "title" : "Programming is Great",
-        "excert" : "Discover the joy of coding and unlock a world of creativity and problem-solving. In this article, we'll explore what makes programming so great, from the thrill of building something from scratch to the satisfaction of overcoming complex challenges.",
-        "content" : """
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?       
-        """
+        "slug": "code-and-coffee",
+        "image": "coding.jpg",
+        "author": "Harsh Soni",
+        "date": "2024-02-20",
+        "title": "Code and Coffee",
+        "excert": "How coffee fuels programmers and enhances productivity.",
+        "content": "For many developers, coffee is not just a beverage; it's a ritual. The moment you take that first sip, the caffeine kickstarts your brain, making coding sessions more productive. I remember working on a complex backend system at 2 AM, with only a cup of espresso keeping me company. Studies have shown that moderate caffeine consumption enhances focus and alertness, making it a great companion for programmers. However, balance is key—too much caffeine can lead to crashes. So, the next time you're stuck on a bug, take a sip, take a break, and let the solution come to you naturally."
     },
     {
-        "slug" : "into-the-woods",
-        "image" : "woods.jpg",
-        "author" : "Harsh Soni",
-        "date" : date(2020,8,5),
-        "title" : "Programming is Great",
-        "excert" : "Take a journey with us into the heart of the woods, where nature's beauty and wonder await. In this article, we'll explore the magic of the forest, from the towering trees to the creatures that call it home.",
-        "content" : """
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?       
-        """
+        "slug": "nature-walk",
+        "image": "woods.jpg",
+        "author": "Harsh Soni",
+        "date": "2024-03-05",
+        "title": "Nature Walk",
+        "excert": "The rejuvenating experience of walking through a quiet forest.",
+        "content": "Walking through a dense forest early in the morning is a surreal experience. The chirping of birds, the scent of fresh earth, and the sight of dew-covered leaves create a sense of peace rarely found in urban life. Recently, I took a short trip to a nearby forest reserve, and for the first time in a long while, I disconnected from technology and just observed nature. Studies suggest that spending time in nature reduces stress and improves mental clarity. If you're feeling overwhelmed, take a break, step outside, and let nature heal you."
     },
+    {
+        "slug": "coding-marathon",
+        "image": "coding.jpg",
+        "author": "Harsh Soni",
+        "date": "2023-06-30",
+        "title": "Coding Marathon",
+        "excert": "A deep dive into the world of coding marathons and their impact on developers.",
+        "content": "Hackathons and coding marathons push developers beyond their limits. Recently, I participated in a 48-hour coding marathon, and the experience was exhilarating. The pressure to build a working prototype within a strict deadline forces creativity and teamwork. While caffeine and adrenaline kept us awake, it was the passion for coding that drove us to the finish line. If you're a developer, I highly recommend participating in hackathons—it not only sharpens your skills but also introduces you to amazing like-minded people."
+    },
+    {
+        "slug": "summit-success",
+        "image": "mountains.jpg",
+        "author": "Harsh Soni",
+        "date": "2024-03-18",
+        "title": "Summit Success",
+        "excert": "Reaching the summit and reflecting on the journey of challenges and growth.",
+        "content": "Every summit conquered is a personal victory. A few months ago, I decided to challenge myself with a solo trek to a peak I had never attempted before. The climb was physically exhausting, and at times, I questioned whether I should turn back. But the moment I reached the top, all the struggles felt worth it. The journey reminded me that success is not about taking shortcuts; it's about resilience, effort, and enjoying the climb. Whether it's a career goal or a life goal, keep climbing—success is waiting for you at the top."
+    }
 ]
 
-# Create your views here.
-def index(request):
-    return render(request, "blog/index.html")
+#helper function to get the date
+def get_date(post):
+    print(f"Calling get_date with: {post}") 
+    return post['date']
 
-def posts(request):    
-    return render(request, "blog/all-posts.html")
+# Create your views here.
+
+def index(request):
+    
+    sorted_post = sorted(all_posts, key=get_date)
+    latest_post = sorted_post[-3:]
+
+    return render(request, "blog/index.html", {"posts": latest_post})
+
+
+def posts(request):
+   
+    return render(request, "blog/all-posts.html", {"all_posts" : all_posts})
+
 
 def post_detail(request, slug):
-    
-    slug = slug
-    request_data = slug
-    
-    return render(request, "blog/post-detail.html", {"request_data" : request_data})
+
+    for post in all_posts:
+        if post['slug'] == slug:
+            request_data = post
+
+    return render(request, "blog/post-detail.html", {"post": request_data})

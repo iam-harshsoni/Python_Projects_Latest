@@ -10,21 +10,17 @@
 
 {% block body %}
     <section id="summary">
-        <h2>Post Title</h2>
+        <h2>{{ post.title }}</h2>
         <article> 
-            <img src="{% static "images/mountains.jpg" %}" alt="Post Title" />
-            <address> By Harsh Soni</address>
+            <img src="{% static "images/"|add:post.image %}" alt="Post Title" />
+            <address> {{post.author}}</address>
             <div>
-                Last Updated on <time>July 10th</time>
+                {{post.date}}
             </div>
         </article>
     </section>
 
     <main>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+       {{post.content}}
     </main>
 {% endblock body %}
