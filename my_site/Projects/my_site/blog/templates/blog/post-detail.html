@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}This Post Title{% endblock title %}
+
+{% block css_files %}
+
+    <link rel="stylesheet" href="{% static "blog/post-detail.css" %}"> 
+{% endblock css_files %}
+
+{% block body %}
+    <section id="summary">
+        <h2>Post Title</h2>
+        <article> 
+            <img src="{% static "images/mountains.jpg" %}" alt="Post Title" />
+            <address> By Harsh Soni</address>
+            <div>
+                Last Updated on <time>July 10th</time>
+            </div>
+        </article>
+    </section>
+
+    <main>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At vel, quidem officiis rem similique aut, cum quam laboriosam consequatur aperiam ullam delectus consequuntur vero natus accusamus exercitationem impedit excepturi sapiente?</p>
+    </main>
+{% endblock body %}
