@@ -18,11 +18,8 @@ my_blogs = {
 def index(request):
     return render(request, "blog/index.html")
 
-def posts(request):
-    
-    blogs = range(1,10)
-    
-    return render(request, "blog/posts.html", {"blogs" : blogs})
+def posts(request):    
+    return render(request, "blog/all-posts.html")
 
 def post_detail(request, slug):
     
