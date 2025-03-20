@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from datetime import date
 
@@ -51,45 +52,52 @@ all_posts = [
 
 #helper function to get the date
 def get_date(post):
-    print(f"Calling get_date with: {post}") 
-    return post['date']
+    try:
+        print(f"Calling get_date with: {post}") 
+        return post['date']
+    except Exception as e:
+        raise Http404()
 
 # Create your views here.
 
 def index(request):
-    
-    sorted_post = sorted(all_posts, key=get_date)
-    latest_post = sorted_post[-3:]
+    try:
+        sorted_post = sorted(all_posts, key=get_date)
+        latest_post = sorted_post[-3:]
 
-    return render(request, "blog/index.html", {"posts": latest_post})
-
+        return render(request, "blog/index.html", {"posts": latest_post})
+    except Exception as e:
+        raise Http404()
 
 def posts(request):
-   
-    return render(request, "blog/all-posts.html", {"all_posts" : all_posts})
-
+    try:
+        return render(request, "blog/all-posts.html", {"all_posts" : all_posts})
+    except Exception as e:
+        raise Http404()
 
 def post_detail(request, slug):
-
-    for post in all_posts:
-        if post['slug'] == slug:
-            request_data = post
+    try:
+        for post in all_posts:
+            if post['slug'] == slug:
+                request_data = post
+                
+        # ********** OR *************
+        """ More efficient than For loop above as 
+            Forloop: ( Disadvantages )
+                - Inefficient because it keeps looping even after finding a match.
+                - if post is not found, request_data might be undefined, causing issues.
             
-    # ********** OR *************
-    """ More efficient than For loop above as 
-        Forloop: ( Disadvantages )
-            - Inefficient because it keeps looping even after finding a match.
-            - if post is not found, request_data might be undefined, causing issues.
+            next(): (Advantages ✅)
+                - More efficient since it stops searching after finding the first match.
+                - Shorter and cleaner code.
         
-        next(): (Advantages ✅)
-            - More efficient since it stops searching after finding the first match.
-            - Shorter and cleaner code.
-    
-    """
+        """
 
-    # Raises StopIteration error if no match is found (unless a default value is provided).
-    # Safer to provide defaul value as 'None' at the end to This prevents errors by returning None if no matching post is found.
-    
-    request_data = next((post for post in all_posts if post["slug"] == slug), None)
+        # Raises StopIteration error if no match is found (unless a default value is provided).
+        # Safer to provide defaul value as 'None' at the end to This prevents errors by returning None if no matching post is found.
+        
+        request_data = next((post for post in all_posts if post["slug"] == slug), None)
 
-    return render(request, "blog/post-detail.html", {"post": request_data})
+        return render(request, "blog/post-detail.html", {"post": request_data})
+    except Exception as e:
+        raise Http404()
