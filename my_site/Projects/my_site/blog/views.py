@@ -16,8 +16,7 @@ def index(request):
     - If an error occurs, it prints the error and raises a 404 exception.
     """
     try:
-        all_posts = Post.objects.all().order_by(
-            "-date")[:3]  # Get the latest 3 posts
+        all_posts = Post.objects.all().order_by("-date")[:3]  # Get the latest 3 posts
         return render(request, "blog/index.html", {"posts": all_posts})
 
     except Exception as e:
@@ -52,7 +51,10 @@ def post_detail(request, slug):
     try:
         # Get the post by slug or return 404
         request_data = get_object_or_404(Post, slug=slug)
-        return render(request, "blog/post-detail.html", {"post": request_data})
+        return render(request, "blog/post-detail.html", 
+                      {"post": request_data,
+                       "post_tags" : request_data.tags.all()                       
+                       })
 
     except Exception as e:
         print(e)  # Print error for debugging
