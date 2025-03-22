@@ -8,6 +8,7 @@ admin.site.register(Tag)
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ["title", "image_name"]
+    list_filter = ("author", "tags", "date",)
+    list_display = ("title", "date", "author",)
 
 admin.site.register(Post,PostAdmin)

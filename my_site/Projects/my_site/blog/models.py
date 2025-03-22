@@ -14,25 +14,24 @@ class Author(models.Model):
 
 
 class Tag(models.Model):
-    caption = models.CharField(max_length=100, blank=True)
-
+    caption = models.CharField(max_length=20, blank=True)
+    
     def __str__(self) -> str:
-        return {self.caption}
-
+        return f"{self.caption}"
 
 class Post(models.Model):
 
     author = models.ForeignKey(
-        Author, related_name="posts", on_delete=models.CASCADE)
+        Author, related_name="posts", on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, related_name="posts", blank=True)
 
     title = models.CharField(max_length=125)
     excert = models.CharField(max_length=200)
     image_name = models.CharField(max_length=100)
-    date = models.DateField(default=date.today())
+    date = models.DateField(auto_now=True)
     content = models.CharField(max_length=500)
     slug = models.SlugField(default="", editable=False,
-                            null=False, db_index=True)
+                            null=False, db_index=True, unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

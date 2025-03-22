@@ -28,11 +28,14 @@ def generate_post(n=1):
             images = ["mountains.jpg","woods.jpg","coding.jpg"]
             
             author_obj = list(Author.objects.all())
-            # random_author = author_obj[random.randint(0,len(author_obj)-1)]
             random_author = random.choice(author_obj)
+            
+            tag_obj = list(Tag.objects.all())
+            random_tag = random.choice(tag_obj)
             
             author = random_author
             title = fake.sentence(nb_words=3)
+            tags = tag_obj
             excert = fake.sentence(nb_words=20)
             image_name = random.choice(images)
             date = fake.date()
@@ -41,11 +44,27 @@ def generate_post(n=1):
             Post.objects.create(
                 author = author,
                 title = title,
+                tags = tag_obj,
                 excert = excert,
                 image_name = image_name,
                 date = date,
                 content = content,
             )
         
+    except Exception as e:
+        print(e)
+        
+def update_post():
+    try:
+        tag_obj = list(Tag.objects.all())
+        random_tag = random.choice(tag_obj)
+        
+        posts = list(Post.objects.all())
+        
+        for post in posts:
+            post.tags.set([random_tag])
+            
+            post.save()
+            
     except Exception as e:
         print(e)
