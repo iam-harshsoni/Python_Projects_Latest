@@ -9,5 +9,5 @@ urlpatterns = [
 
     # slug:slug this slug: is called Transformer
     # posts/my-first-post
-    path('posts/<slug:slug>', views.post_detail, name="post-detail")
+    path('posts/<slug:slug>/', views.post_detail, name="post-detail")
 ]

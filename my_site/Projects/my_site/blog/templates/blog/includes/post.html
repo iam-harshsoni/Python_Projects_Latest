@@ -3,11 +3,11 @@
 <li>
     <article class="post">
         <a href="{% url "post-detail" post.slug %}">
-            <img src="{% static "images/"|add:post.image %}" alt="{{post.title}}" />
+            <img src="{% static "images/"|add:post.image_name %}" alt="{{post.title}}" />
             <div class="post__content">
                
                    <h3>
-                    {{post.title}}
+                    {{post.title}} 
                    </h3>
                 
                 <p>{{post.excert}}</p> 
