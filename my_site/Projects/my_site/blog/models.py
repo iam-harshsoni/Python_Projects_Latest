@@ -29,7 +29,7 @@ class Post(models.Model):
     excert = models.CharField(max_length=200)
     image_name = models.CharField(max_length=100)
     date = models.DateField(auto_now=True)
-    content = models.CharField(max_length=500)
+    content = models.CharField(max_length=1500)
     slug = models.SlugField(default="", editable=False,
                             null=False, db_index=True, unique=True)
 
