@@ -4,10 +4,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('posts/', views.posts, name="all-posts"),
-
-    # slug:slug this slug: is called Transformer
-    # posts/my-first-post
-    path('posts/<slug:slug>/', views.post_detail, name="post-detail")
+    path('', views.IndexView.as_view(), name="index"),
+    path('posts/', views.PostView.as_view(), name="all-posts"),
+    path('posts/<slug:slug>/', views.PostDetailView.as_view(), name="post-detail")
 ]
