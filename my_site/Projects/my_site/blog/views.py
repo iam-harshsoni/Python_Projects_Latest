@@ -34,12 +34,10 @@ class PostView(ListView):
 class PostDetailView(View):
 
     def get(self, request, slug):
+        
         post = Post.objects.get(slug=slug)
-        context = {
-            "post" : post,
-            "post_tags" : post.tags.all(),
-            "comment_form" : CommentForm()
-        }
+        context = self.post_detail_context(CommentForm(), post)
+        
         return render(request, "blog/post-detail.html",context) 
 
     def post(self, request, slug):
@@ -64,10 +62,16 @@ class PostDetailView(View):
             return HttpResponseRedirect(reverse("post-detail",args=[slug]))
         
         
+        context = self.post_detail_context(comment_form, post)
+        return render(request, "blog/post-detail.html",context) 
+
+    def post_detail_context(self, comment_form, post):
         context = {
             "post" : post,
             "post_tags" : post.tags.all(),
-            "comment_form" : comment_form
+            "comment_form" : comment_form,
+            "comments" : post.comments.all().order_by("-id")
         }
-        return render(request, "blog/post-detail.html",context) 
+        
+        return context
   
