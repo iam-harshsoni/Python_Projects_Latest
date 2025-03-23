@@ -1,9 +1,13 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, render
 from datetime import date
+from django.views.generic import ListView
+from django.views import View
+
 from .seed import *
 from .models import *
-from django.views.generic import ListView, DetailView
+from .forms import *
 
 # Create your views here.
 
@@ -27,12 +31,43 @@ class PostView(ListView):
 
 # No need to pass on any query that look for SLUG. As View inherited from DetailView will automatically look for PK or SLUG and match
 # the argument with that.
-class PostDetailView(DetailView):
-    template_name = "blog/post-detail.html"
-    model = Post
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["post_tags"] = self.object.tags.all()  # This code will get the Tags for the post. 
-        return context
-    
+class PostDetailView(View):
+
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post" : post,
+            "post_tags" : post.tags.all(),
+            "comment_form" : CommentForm()
+        }
+        return render(request, "blog/post-detail.html",context) 
+
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        
+        if comment_form.is_valid():
+            
+            """
+            In Comment-form, I excluded 'post' to be viewed in the form (UI).
+            Now when use add the comments, I need to make sure the comment is mapped
+            with the correct "Post". To do that I need to link the correct post by
+            my own at backend. 
+            
+            To do that I have to add 'commit=False' this will prevent save() to hit the 
+            database and it will instead create a new model instance
+            """
+            # comment_form.save()
+            comment = comment_form.save(commit=False)
+            comment.post = post  # Here I am setting the value of post
+            comment.save()
+            return HttpResponseRedirect(reverse("post-detail",args=[slug]))
+        
+        
+        context = {
+            "post" : post,
+            "post_tags" : post.tags.all(),
+            "comment_form" : comment_form
+        }
+        return render(request, "blog/post-detail.html",context) 
+  
