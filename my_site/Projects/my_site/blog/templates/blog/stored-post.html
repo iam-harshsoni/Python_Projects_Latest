@@ -4,26 +4,20 @@
 {% block title %}My Stored Posts{% endblock title %}
 
 {% block css_files %}
-
-    <link rel="stylesheet" href="{% static "blog/post.css" %}">
-    <link rel="stylesheet" href="{% static "blog/index.css" %}">
+<link rel="stylesheet" href="{% static "blog/stored-posts.css" %}">
 {% endblock css_files %}
 
 {% block body %}
 
-<section>
-    <ul>
+<section id="stored-posts">
+    {% if not has_posts %}
+        <p> You didnt saved any posts for later. </p>
+    {% endif %}
 
-        {% if not has_posts %}
-            <p> You didnt saved any posts for later. </p>
-        {% endif %}
-        
+    <ul>
         {% for post in posts %}
             <li><a href="{% url "post-detail" post.slug %}"> {{ post.title }} </a></li>
         {% endfor %}
-
-        
-        
     </ul>
 </section>
 

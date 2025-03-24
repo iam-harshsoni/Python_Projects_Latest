@@ -14,9 +14,10 @@
     <header id="main-navigation">
         <h1> <a href="{% url "index" %}">Harsh's Blog</a> </h1>
         <nav>
-            <a href="{% url "all-posts" %}">All Posts</a>
+            <a href="{% url "all-posts" %}">All Posts</a> <span style="color:white"> | </span>
             <a href="{% url "read-later" %}">Stored Posts</a>
         </nav>
+ 
     </header>
     
    {% block body %}{% endblock body %}

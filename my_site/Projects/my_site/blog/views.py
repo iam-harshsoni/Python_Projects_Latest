@@ -32,12 +32,23 @@ class PostView(ListView):
 # No need to pass on any query that look for SLUG. As View inherited from DetailView will automatically look for PK or SLUG and match
 # the argument with that.
 class PostDetailView(View):
-
+    
+    def is_stored_post(self, request, post_id):
+        
+        stored_posts = request.session.get("stored_posts") #Getting the value from session
+        
+        if stored_posts is not None:
+            is_saved_for_later = post_id in stored_posts
+        else:
+            is_saved_for_later = False
+            
+        return is_saved_for_later
+    
     def get(self, request, slug):
         
-        post = Post.objects.get(slug=slug)
-        context = self.post_detail_context(CommentForm(), post)
-        
+        post = Post.objects.get(slug=slug)        
+        context = self.post_detail_context(CommentForm(), post, request)
+
         return render(request, "blog/post-detail.html",context) 
 
     def post(self, request, slug):
@@ -46,31 +57,21 @@ class PostDetailView(View):
         
         if comment_form.is_valid():
             
-            """
-            In Comment-form, I excluded 'post' to be viewed in the form (UI).
-            Now when use add the comments, I need to make sure the comment is mapped
-            with the correct "Post". To do that I need to link the correct post by
-            my own at backend. 
-            
-            To do that I have to add 'commit=False' this will prevent save() to hit the 
-            database and it will instead create a new model instance
-            """
-            # comment_form.save()
             comment = comment_form.save(commit=False)
             comment.post = post  # Here I am setting the value of post
             comment.save()
             return HttpResponseRedirect(reverse("post-detail",args=[slug]))
         
-        
-        context = self.post_detail_context(comment_form, post)
+        context = self.post_detail_context(comment_form, post, request)
         return render(request, "blog/post-detail.html",context) 
 
-    def post_detail_context(self, comment_form, post):
+    def post_detail_context(self, comment_form, post, request):
         context = {
             "post" : post,
             "post_tags" : post.tags.all(),
             "comment_form" : comment_form,
-            "comments" : post.comments.all().order_by("-id")
+            "comments" : post.comments.all().order_by("-id"),
+            "saved_for_later" : self.is_stored_post(request,post.id)
         }
         
         return context
@@ -79,7 +80,7 @@ class ReadLaterView(View):
     
     
     def get(self, request):
-        stored_posts = request.session.get("stored_posts")
+        stored_posts = request.session.get("stored_posts") #Getting the value from session
         
         context = {}
         
@@ -94,7 +95,7 @@ class ReadLaterView(View):
         return render(request, "blog/stored-post.html", context)
             
     def post(self, request):
-        stored_posts = request.session.get("stored_posts")
+        stored_posts = request.session.get("stored_posts") #Getting the value from session
         
         if stored_posts is None:
             stored_posts = []
@@ -103,6 +104,9 @@ class ReadLaterView(View):
         
         if post_id not in stored_posts:
             stored_posts.append(post_id)
-            request.session["stored_posts"] = stored_posts
+        else:
+            stored_posts.remove(post_id)
+        
+        request.session["stored_posts"] = stored_posts #Setting the value in the session
         
         return HttpResponseRedirect("/")
