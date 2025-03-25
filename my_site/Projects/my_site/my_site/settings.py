@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
- 
+
 load_dotenv()  # Load environment variables from .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,13 +31,14 @@ SECRET_KEY = getenv("SECRET_KEY")
 DEBUG = getenv("IS_DEVELOPMENT", True)
 
 ALLOWED_HOSTS = [
-    getenv("APP_HOST", "127.0.0.1")
-    ]
+    getenv("APP_HOST", "127.0.0.1"), "127.0.0.1"
+]
 
 # Application definition
 
 INSTALLED_APPS = [
     'blog',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,16 +85,6 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER' : 'djangoblog',
-#         'PASSWORD': 'djangoblog12345',
-#         'HOST': 'django-blog.c30ww6kwmqaa.ap-south-1.rds.amazonaws.com',
-#         'PORT' : '5432'
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -150,10 +141,40 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Added by me
 STATICFILES_DIRS = [
-    
+
     BASE_DIR / "static"
-    
+
 ]
 
 MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/files/"
+# MEDIA_URL = f"https://{getenv("AWS_CUSTOM_DOMAIN")}/uploads/"
+
+# for default mediafiles and statefiles
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": getenv("AWS_ACCESS_KEY_ID"),
+            "secret_key": getenv("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": getenv("AWS_STORAGE_BUCKET_NAME"),
+            "region_name": getenv("AWS_S3_REGION_NAME"),
+            # "endpoint_url": getenv("AWS_S3_ENDPOINT_URL"),
+            "location": "uploads",
+            "custom_domain": getenv("AWS_CUSTOM_DOMAIN")
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "OPTIONS": {
+            "access_key": getenv("AWS_ACCESS_KEY_ID"),
+            "secret_key": getenv("AWS_SECRET_ACCESS_KEY"),
+            "bucket_name": getenv("AWS_STORAGE_BUCKET_NAME"),
+            "region_name": getenv("AWS_S3_REGION_NAME"),
+            "location": "staticfiles",  # Specify folder for static files
+            "custom_domain": getenv("AWS_CUSTOM_DOMAIN")
+        },
+    },
+}
+
+

@@ -53,17 +53,18 @@ def generate_post(n=1):
             
             title = fake.sentence(nb_words=3)  # Generate a random title
             excert = fake.sentence(nb_words=20)  # Generate a random excerpt
-            image_name = random.choice(images)  # Choose a random image
+            # image_name = random.choice(images)  # Choose a random image
             date = fake.date()  # Generate a random date
             content = fake.sentence(nb_words=100)  # Generate random content
+            tag = random_tag
             
             # Create and save the post
             post = Post.objects.create(
                 author=random_author,
                 title=title,
                 excert=excert,
-                image_name=image_name,
                 date=date,
+                tag = tag,
                 content=content,
             )
 
